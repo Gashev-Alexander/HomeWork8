@@ -28,7 +28,8 @@ def input_data_chit():
     note_chit = input("Введите дополнительную информацию: ")
     return [chit_last_name, chit_first_name, dis_chit, note_chit]
 
-
+def update_data():
+    print('тут будет редактирование')
 
 def choice_sep():
     sep = "/"
@@ -68,9 +69,9 @@ def choice_todo():
             print("Фамилия".center(20), "Имя".center(20), "Группа или Дисциплина".center(35))
             print("-"*75)
             print(item[0].center(20), item[1].center(20), item[2].center(35))
-            edit = input('Введите 1 если хотите изменить запись: ')
-            if edit == '1':
-                print('123')
+            ch_d = input('Введите 1 если хотите изменить запись: ')
+            if ch_d == '1':
+                ch_d = update_data()
             else:
                 print('Повторите попытку!')        
         else:
