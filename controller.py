@@ -6,6 +6,7 @@ from export_data_chit import export_data_chit
 from print_data_chit import print_data_chit
 from print_data_stud import print_data_stud
 from search_data import search_data
+import os, subprocess
 
 
 
@@ -39,7 +40,7 @@ def choice_todo():
     1 - Добавить Студента \n\
     2 - Добавить Преподавателя \n\
     3 - Вывод списков \n\
-    4 - Поиск по фамилии")
+    4 - Поиск и редактирование")
     ch = input("Введите цифру: ")
     if ch == '1':
         sep = choice_sep()
@@ -69,10 +70,22 @@ def choice_todo():
             print("Фамилия".center(20), "Имя".center(20), "Группа или Дисциплина".center(35))
             print("-"*75)
             print(item[0].center(20), item[1].center(20), item[2].center(35))
-            ch_d = input('Введите 1 если хотите изменить запись: ')
-            if ch_d == '1':
-                ch_d = update_data()
-            else:
-                print('Повторите попытку!')        
+            def LineReplacement(File, FindThis, ReplaceByThis):
+                TemporaryFile = File + '.tmp'
+                with open(File, 'r') as f1, open(TemporaryFile, 'w') as f2:
+                    lines = f1.readlines()
+                    for line in lines:
+                        line = line.strip()
+                        if line == FindThis:
+                            f2.write(ReplaceByThis + '\n')
+                        else:
+                            f2.write(line + '\n') 
+                    path = os.path.join(os.path.abspath(os.path.dirname(__file__)), File)
+                os.remove(path)
+                os.rename('Chit.csv.tmp', 'Chit.csv')
+            File = "Chit.csv"
+            FindThis = input("Введите данные для замены: ")
+            ReplaceByThis = input("Введите на какие данные меняете: ")
+            LineReplacement(File, FindThis, ReplaceByThis)       
         else:
             print("Данные не обнаружены")
